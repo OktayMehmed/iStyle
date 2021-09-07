@@ -13,7 +13,7 @@ const products = [
   {
     _id: '2',
     name: 'iPhone 12 Pro 256GB Memory',
-    image: '/images/iPhone12Pro.jpg',
+    image: '/images/iphone12pro.jpg',
     description:
       'Introducing the iPhone 12 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
     price: 599.99,
