@@ -1,0 +1,22 @@
+{
+  "name": "istyle",
+  "version": "1.0.0",
+  "description": "iStyle shop",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OktayMehmed/iStyle.git"
+  },
+  "author": "Oktay Mehmed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OktayMehmed/iStyle/issues"
+  },
+  "homepage": "https://github.com/OktayMehmed/iStyle#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
