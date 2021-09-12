@@ -13,11 +13,10 @@ const ProductDeital = ({ match }) => {
     axios.get(`/api/products/${match.params.id}`).then(({ data }) => {
       setProduct(data)
     })
-  }, []);
+  }, [match]);
 
   return (
     <>
-
       <Link className='btn btn-first' to='/'>Go Back</Link>
       <Row>
 
