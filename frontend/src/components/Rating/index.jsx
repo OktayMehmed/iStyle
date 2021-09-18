@@ -2,9 +2,10 @@ import React from 'react'
 import './styles.css'
 
 const Rating = ({ value, text, color }) => {
+
+  
   return (
     <div className='rating'>
-      {value}
       <span>
         <i style={{color}} className={value >= 1
           ? 'fas fa-star'
