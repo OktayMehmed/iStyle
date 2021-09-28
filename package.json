@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/OktayMehmed/iStyle#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^6.2.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
