@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Airpods Wireless Bluetooth Headphones',
     image: '/images/airpods.jpg',
     description:
@@ -11,7 +10,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'iPhone 12 Pro 256GB Memory',
     image: '/images/iphone12pro.jpg',
     description:
@@ -22,7 +20,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'MacBook Pro 16',
     image: '/images/macbookpro16.jpg',
     description:
@@ -33,7 +30,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'iPad Pro',
     image: '/images/ipadpro.jpg',
     description:
@@ -44,7 +40,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '5',
     name: 'Apple Watch Series 6',
     image: '/images/watchseries6.jpg',
     description:
@@ -55,7 +50,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '6',
     name: 'Apple TV 4K',
     image: '/images/tv4k.jpg',
     description:
