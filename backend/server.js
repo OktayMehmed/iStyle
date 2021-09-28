@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv')
 
 const db = require('./config/db')
-const products = require('./data/products');
+const Products = require('./routes/Product');
 
 dotenv.config();
 
@@ -14,14 +14,8 @@ app.get('/', (req, res) => {
   res.send('API')
 })
 
-app.get('/api/products', (req, res) => {
-  res.json(products)
-})
+app.use('/api/products', Products);
 
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find(p => p._id === req.params.id)
-  res.json(product)
-})
 
 const PORT = process.env.PORT || 8000;
 const NODE_ENV = process.env.NODE_ENV
