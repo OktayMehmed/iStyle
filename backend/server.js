@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 
 const db = require('./config/db')
 const Products = require('./routes/Product');
+const {notFound, errorHandler} = require('./middleware/error');
 
 dotenv.config();
 
@@ -15,6 +16,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/products', Products);
+
+app.use(notFound)
+
+app.use(errorHandler)
 
 
 const PORT = process.env.PORT || 8000;

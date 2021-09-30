@@ -3,19 +3,21 @@ const router = express.Router();
 
 const Product = require("../model/Product");
 
-// Fetch all products
-// GET /api/products
+// @desc Fetch all products
+// @route GET /api/products
+// @access Public
 router.get("/", (req, res) => {
   Product.find().then((products) => res.json(products));
 });
 
-// Fetch single product
-// GET /api/products/:id
+// @desc Fetch single product
+// @route GET /api/products/:id
+// @access Public
 router.get("/:id", (req, res) => {
+
   Product.findById(req.params.id)
     .then((product) => res.json(product))
-    .catch((err) => res.status(404) ? res.json('Product not found!') : console.error(err))
+    .catch(() => res.status(404).json({message: 'Product not find!'}))
+});
 
-})
-
-module.exports = router
+module.exports = router;
