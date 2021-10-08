@@ -14,3 +14,15 @@
 .btn-primary:hover{
   color: rgb(70, 68, 68);
 }
+
+select {
+  background-color: rgba(177, 173, 173, 0.226);
+  color: black;
+  padding: 0 10px;
+  width: 80px;
+  border: none;
+  font-size: 18px;
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
