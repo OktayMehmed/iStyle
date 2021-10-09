@@ -18,3 +18,12 @@ export const addToCart = (id, quantity) => (dispatch, getState) => {
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
   })
 }
+
+export const removeItemFromCart = (id) => (dispatch, getState) => {
+  dispatch({
+    type: 'CART_REMOVE_ITEM',
+    payload: id
+  })
+
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}

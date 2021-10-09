@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Image, Button, ListGroup } from "react-bootstrap";
 
 import Message from "../Message";
-import { addToCart } from "../../actions/cartActions";
+import { addToCart, removeItemFromCart } from "../../actions/cartActions";
 
 const CartPage = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -31,7 +31,7 @@ const CartPage = ({ match, location, history }) => {
   };
 
   const removeFromCartHandler = (id) => {
-    console.log("remove");
+    dispatch(removeItemFromCart(id))
   };
 
   const checkoutHandler = () => {
@@ -48,7 +48,7 @@ const CartPage = ({ match, location, history }) => {
           </Message>
         ) : (
           <ListGroup variant="flush">
-            {cartItems.map((item) => (
+            {cartItems.map(item => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
