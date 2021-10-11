@@ -31,12 +31,12 @@ const CartPage = ({ match, location, history }) => {
   };
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeItemFromCart(id))
+    dispatch(removeItemFromCart(id));
   };
 
   const checkoutHandler = () => {
-    history.push('/login?redirect=shipping')
-  }
+    history.push("/login?redirect=shipping");
+  };
 
   return (
     <Row>
@@ -48,7 +48,8 @@ const CartPage = ({ match, location, history }) => {
           </Message>
         ) : (
           <ListGroup variant="flush">
-            {cartItems.map(item => (
+
+            {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
