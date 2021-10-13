@@ -27,6 +27,33 @@ const authUser = (req, res, next) => {
     );
 };
 
+// @desc Register new user
+// @route POST /api/users
+// @access Public
+const registerUser = (req, res, next) => {
+  const { name, email, password } = req.body;
+
+  User.findOne({ email }).then((userExist) => {
+    if (userExist) {
+      res.status(400).json({ message: "User already exists" });
+    }
+  });
+
+  User.create({ name, email, password }).then((user) => {
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+  });
+};
+
 // @desc Get user profile
 // @route GET /api/users/profile
 // @access Private
@@ -45,4 +72,4 @@ const getUserProfile = (req, res, next) => {
     }
   });
 };
-module.exports = { authUser, getUserProfile };
+module.exports = { authUser, getUserProfile, registerUser };
