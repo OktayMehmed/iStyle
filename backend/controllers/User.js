@@ -49,7 +49,8 @@ const registerUser = (req, res, next) => {
         token: generateToken(user._id),
       });
     } else {
-      res.status(400).json({ message: "Invalid user data" });
+      res.status(400)
+      .json({ message: "Invalid user data" });
     }
   });
 };
