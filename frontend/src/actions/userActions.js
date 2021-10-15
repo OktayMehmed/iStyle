@@ -6,7 +6,7 @@ export const login = (email, password) => (dispatch) => {
   });
 
   const config = {
-    heaers: {
+    headers: {
       "Content-Type": "application/json",
     },
   };
@@ -36,19 +36,19 @@ export const logout = () => (dispatch) => {
   dispatch({ type: "USER_LOGOUT" });
 };
 
-export const register = (name ,email, password) => (dispatch) => {
+export const register = (name, email, password) => (dispatch) => {
   dispatch({
     type: "USER_REGISTER_REQUEST",
   });
 
   const config = {
-    heaers: {
+    headers: {
       "Content-Type": "application/json",
     },
   };
 
   axios
-    .post("/api/users", {name ,email, password }, config)
+    .post("/api/users", { name, email, password }, config)
     .then(({ data }) => {
       dispatch({
         type: "USER_REGISTER_SUCCESS",
@@ -62,10 +62,44 @@ export const register = (name ,email, password) => (dispatch) => {
       localStorage.setItem("userInfo", JSON.stringify(data));
     })
     .catch((error) => {
-      
       dispatch({
         type: "USER_REGISTER_FAIL",
-        payload: 
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};
+
+export const getUserDetails = (id) => (dispatch, getState) => {
+  dispatch({
+    type: "USER_DETAILS_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .get(`/api/users/${id}`, config)
+    .then(({ data }) => {
+      dispatch({
+        type: "USER_DETAILS_SUCCESS",
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "USER_DETAILS_FAIL",
+        payload:
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
