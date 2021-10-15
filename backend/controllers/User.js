@@ -52,7 +52,8 @@ const registerUser = (req, res, next) => {
       res.status(400)
       .json({ message: "Invalid user data" });
     }
-  });
+    
+  }).catch((e) => res.status(400).json(e))
 };
 
 // @desc Get user profile
