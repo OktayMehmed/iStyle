@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../FormContainer";
-import { shippingAddressCart } from "../../actions/cartActions";
+import { saveShippingAddress } from "../../actions/cartActions";
 import CheckoutSteps from '../CheckoutSteps'
 
 const ShippingAddress = ({ history }) => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  if(!userInfo) {
+    history.push('/login')
+  }
+
+
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -18,7 +26,7 @@ const ShippingAddress = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(shippingAddressCart({ address, city, postalCode, country }));
+    dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push("/payment");
   };
   return (
@@ -31,7 +39,7 @@ const ShippingAddress = ({ history }) => {
           <Form.Control
             type="text"
             placeholder="Enter address"
-            value={address}
+            value={address || ''}
             required
             onChange={(e) => setAddress(e.target.value)}
           />
@@ -42,7 +50,7 @@ const ShippingAddress = ({ history }) => {
           <Form.Control
             type="text"
             placeholder="Enter city"
-            value={city}
+            value={city || ''}
             required
             onChange={(e) => setCity(e.target.value)}
           />
@@ -53,7 +61,7 @@ const ShippingAddress = ({ history }) => {
           <Form.Control
             type="text"
             placeholder="Enter postal code"
-            value={postalCode}
+            value={postalCode || ''}
             required
             onChange={(e) => setPostalCode(e.target.value)}
           />
@@ -64,7 +72,7 @@ const ShippingAddress = ({ history }) => {
           <Form.Control
             type="text"
             placeholder="country"
-            value={country}
+            value={country || ''}
             required
             onChange={(e) => setCountry(e.target.value)}
           />
