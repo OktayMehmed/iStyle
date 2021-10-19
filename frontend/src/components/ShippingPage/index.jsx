@@ -31,7 +31,7 @@ const ShippingAddress = ({ history }) => {
   };
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2 />
+      <CheckoutSteps step1  />
       <h1 className="text-center">Shipping Address</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address">

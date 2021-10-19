@@ -2,6 +2,19 @@ main {
   min-height: 80vh;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button, select:hover {
+  cursor: pointer;
+}
+
+
 h1 {
   font-size: 33px;
   padding: 10px 0;
