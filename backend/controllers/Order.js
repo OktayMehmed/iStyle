@@ -20,7 +20,7 @@ const addOrderItems = (req, res) => {
   } else {
     const order = new Order({
       orderItems,
-      user: req.user_id,
+      user: req.user._id,
       shippingAddress,
       paymentMethod,
       itemsPrice,
@@ -29,7 +29,10 @@ const addOrderItems = (req, res) => {
       totalPrice,
     });
 
-    order.save().then((createdUser) => res.status(201).json(createdUser))
+    order
+      .save()
+      .then((createdUser) => res.status(201).json(createdUser))
+      .catch((e) => console.error(e));
   }
 };
 
