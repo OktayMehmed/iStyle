@@ -5,7 +5,7 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import Message from "../Message";
 import CheckoutSteps from "../CheckoutSteps";
 
-const OrderPage = () => {
+const PlaceOrderPage = () => {
   const cart = useSelector((state) => state.cart);
 
   // Calculate prices
@@ -20,7 +20,7 @@ const OrderPage = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
-  const orderHandler = () => {
+  const placeOrderHandler = () => {
     console.log("order");
   };
   return (
@@ -118,9 +118,9 @@ const OrderPage = () => {
                 <Button
                   type="button"
                   disabled={cart.cartItems === 0}
-                  onClick={orderHandler}
+                  onClick={placeOrderHandler}
                 >
-                  Order
+                  Place Order
                 </Button>
               </ListGroup.Item>
             </ListGroup>
@@ -131,4 +131,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default PlaceOrderPage;
