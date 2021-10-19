@@ -36,4 +36,17 @@ const addOrderItems = (req, res) => {
   }
 };
 
-module.exports = { addOrderItems };
+// @desc Get order by id
+// @route GET /api/orders/:id
+// @access Private
+const getOrderById = (req, res) => {
+  Order.findById(req.params.id).populate('user', 'name email').then(order => {
+    if(order){
+      res.json(order)
+    } else {
+      res.status(404).json({message: 'Order not found'})
+    }
+  })
+};
+
+module.exports = { addOrderItems, getOrderById };
