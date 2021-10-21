@@ -49,4 +49,26 @@ const getOrderById = (req, res) => {
   })
 };
 
-module.exports = { addOrderItems, getOrderById };
+// @desc Update order to paid
+// @route GET /api/orders/:id
+// @access Private
+const updateOrderToPaid = (req, res) => {
+  Order.findById(req.params.id).then(order => {
+    if(order){
+      order.isPaid = true;
+      order.paidAt = Date.now();
+      order.paymentResult = {
+        id: req.body.id,
+        status: req.body.status,
+        update_time: req.body.update_time,
+        email_address: req.body.email_address
+      }
+
+      order.save().then(updatedOrder => res.json(updatedOrder))
+    } else {
+      res.status(404).json({message: 'Order not found'})
+    }
+  })
+};
+
+module.exports = { addOrderItems, getOrderById, updateOrderToPaid };
