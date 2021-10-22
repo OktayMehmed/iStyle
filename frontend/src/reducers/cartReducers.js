@@ -1,7 +1,4 @@
-export const cartReducer = (
-  state = { cartItems: []},
-  action
-) => {
+export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case "CART_ADD_ITEM":
       const item = action.payload;
@@ -34,11 +31,13 @@ export const cartReducer = (
         shippingAddress: action.payload,
       };
 
-      case "CART_SAVE_PAYMENT_METHOD":
+    case "CART_SAVE_PAYMENT_METHOD":
       return {
         ...state,
         paymentMethod: action.payload,
       };
+    case "CART_RESET":
+      return { cartItems: [] };
     default:
       return state;
   }

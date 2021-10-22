@@ -34,6 +34,9 @@ export const login = (email, password) => (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: "USER_LOGOUT" });
+  dispatch({ type: "USER_DETAILS_RESET" });
+  dispatch({ type: "ORDER_MY_LIST_RESET" });
+  dispatch({ type: "CART_RESET" });
 };
 
 export const register = (name, email, password) => (dispatch) => {
