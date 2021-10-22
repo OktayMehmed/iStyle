@@ -50,7 +50,7 @@ const getOrderById = (req, res) => {
 };
 
 // @desc Update order to paid
-// @route GET /api/orders/:id
+// @route PUT /api/orders/:id
 // @access Private
 const updateOrderToPaid = (req, res) => {
   Order.findById(req.params.id).then(order => {
@@ -71,4 +71,13 @@ const updateOrderToPaid = (req, res) => {
   })
 };
 
-module.exports = { addOrderItems, getOrderById, updateOrderToPaid };
+// @desc Get logged in user orders
+// @route PUT /api/orders/myorders
+// @access Private
+const getUserOrders = (req, res) => {
+  Order.find({user: req.user._id}).then(orders => {
+    res.json(orders)
+  })
+};
+
+module.exports = { addOrderItems, getOrderById, updateOrderToPaid, getUserOrders };

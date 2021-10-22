@@ -103,3 +103,37 @@ export const orderPayAction = (orderId, paymentResult) => (dispatch, getState) =
       });
     });
 };
+
+export const orderMyListAction = () => (dispatch, getState) => {
+  dispatch({
+    type: "ORDER_MY_LIST_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .get(`/api/orders/myorders`, config)
+    .then(({ data }) => {
+      dispatch({
+        type: "ORDER_MY_LIST_SUCCESS",
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "ORDER_MY_LIST_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};
