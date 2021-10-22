@@ -69,7 +69,7 @@ export const getOrderDetails = (id) => (dispatch, getState) => {
     });
 };
 
-export const orderPay = (orderId, paymentResult) => (dispatch, getState) => {
+export const orderPayAction = (orderId, paymentResult) => (dispatch, getState) => {
   dispatch({
     type: "ORDER_PAY_REQUEST",
   });
