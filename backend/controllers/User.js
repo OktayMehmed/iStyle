@@ -100,4 +100,13 @@ const updateUserProfile = (req, res, next) => {
     }
   });
 };
-module.exports = { authUser, getUserProfile, registerUser, updateUserProfile };
+
+// @desc Get all users
+// @route GET /api/users
+// @access Private/Admin
+const getUsers = (req, res, next) => {
+  User.find({}).then((users) => {
+    res.json(users)    
+  });
+};
+module.exports = { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };

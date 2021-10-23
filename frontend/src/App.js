@@ -13,6 +13,7 @@ import ShippingPage from "./components/ShippingPage";
 import PaymentPage from "./components/PaymentPage";
 import PlaceOrderPage from "./components/PlaceOrderPage";
 import OrderPage from "./components/OrderPage";
+import UserListPage from "./components/UserListPage";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/admin/userlist" component={UserListPage} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/cart/:id?" component={CartPage} />
         </Container>

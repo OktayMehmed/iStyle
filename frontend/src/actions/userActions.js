@@ -144,3 +144,38 @@ export const updateProfile = (user) => (dispatch, getState) => {
       });
     });
 };
+
+export const listUsers = () => (dispatch, getState) => {
+  dispatch({
+    type: "USER_LIST_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .get("/api/users", config)
+    .then(({ data }) => {
+      dispatch({
+        type: "USER_LIST_SUCCESS",
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "USER_LIST_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};
+
