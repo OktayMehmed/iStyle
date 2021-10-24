@@ -109,4 +109,19 @@ const getUsers = (req, res, next) => {
     res.json(users)    
   });
 };
-module.exports = { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };
+
+// @desc Delete user by id
+// @route DELETE /api/users/:id
+// @access Private/Admin
+const deleteUser = (req, res, next) => {
+  User.findById(req.params.id).then((user) => {
+    if(user) {
+      user.remove()
+      res.json({ message: 'User was been deleted' })
+    } else {
+      res.status(404)
+      res.json({ message: 'User not found'})
+    }
+  });
+};
+module.exports = { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser };
