@@ -37,6 +37,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: "USER_DETAILS_RESET" });
   dispatch({ type: "ORDER_MY_LIST_RESET" });
   dispatch({ type: "CART_RESET" });
+  dispatch({ type: "USER_LIST_RESET" });
 };
 
 export const register = (name, email, password) => (dispatch) => {
@@ -178,4 +179,3 @@ export const listUsers = () => (dispatch, getState) => {
       });
     });
 };
-
