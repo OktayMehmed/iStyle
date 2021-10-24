@@ -42,7 +42,7 @@ userSchema.pre("save", function (next) {
     bcrypt.hash(this.password, salt).then((hash) => {
       this.password = hash
       next();
-    });
+    }).catch(e => console.log(e))
   });
 });
 

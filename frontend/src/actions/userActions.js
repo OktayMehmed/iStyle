@@ -210,3 +210,36 @@ export const deleteUser = (id) => (dispatch, getState) => {
       });
     });
 };
+
+export const userUpdateAction = (user) => (dispatch, getState) => {
+  dispatch({
+    type: "USER_UPDATE_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .put(`/api/users/${user._id}`, user, config)
+    .then(({ data }) => {
+      dispatch({ type: "USER_UPDATE_SUCCESS" });
+      dispatch({ type: "USER_DETAILS_SUCCESS", payload: data });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "USER_UPDATE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};

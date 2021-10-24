@@ -129,14 +129,16 @@ const deleteUser = (req, res, next) => {
 // @route GET /api/users/:id
 // @access Private/Admin
 const getUserById = (req, res, next) => {
-  User.findById(req.params.id).then((user) => {
+  User.findById(req.params.id)
+  .select("-password")
+  .then((user) => {
     if (user) {
       res.json(user);
     } else {
       res.status(404);
       res.json({ message: "User not found" });
     }
-  });
+  }).catch(e => console.error(e))
 };
 
 // @desc Update user
@@ -144,7 +146,6 @@ const getUserById = (req, res, next) => {
 // @access Private/Admin
 const updateUser = (req, res, next) => {
   User.findById(req.params.id)
-    .select("-password")
     .then((user) => {
       if (user) {
         user.name = req.body.name || user.name;
@@ -162,7 +163,7 @@ const updateUser = (req, res, next) => {
       } else {
         res.status(404).json({ message: "User not found" });
       }
-    });
+    }).catch(e => console.error(e));
 };
 module.exports = {
   authUser,
