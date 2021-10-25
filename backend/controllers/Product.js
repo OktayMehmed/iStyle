@@ -16,4 +16,18 @@ const getProductById = (req, res) => {
     .catch(() => res.status(404).json({ message: "Product not find!" }));
 };
 
-module.exports = { getProducts, getProductById };
+// @desc Delete a product
+// @route DELETE /api/products/:id
+// @access Private/Admin
+const deleteProduct = (req, res) => {
+  Product.findById(req.params.id)
+    .then((product) => {
+      if(product) {
+        product.remove()
+        res.json({ message: 'Product was been deleted' })
+      }
+    })
+    .catch(() => res.status(404).json({ message: "Product not find!" }));
+};
+
+module.exports = { getProducts, getProductById, deleteProduct };

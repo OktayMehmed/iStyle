@@ -43,3 +43,35 @@ export const listProductDetails = (id) => (dispatch) => {
       });
     });
 };
+
+
+export const deleteProductAction = (id) => (dispatch, getState) => {
+  dispatch({
+    type: "PRODUCT_DELETE_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .delete(`/api/products/${id}`, config)
+    .then(() => {
+      dispatch({ type: "PRODUCT_DELETE_SUCCESS" });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "PRODUCT_DELETE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};
