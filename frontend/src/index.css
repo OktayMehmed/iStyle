@@ -36,3 +36,19 @@ select {
   appearance: button;
   outline: none;
 }
+
+.btn-first{
+  margin: 15px 0;
+  color: white;
+  background-color: black;
+  border-radius: 8px;
+}
+
+.btn-primary{
+  color: white;
+  background-color: black;
+}
+
+.btn-primary:hover{
+  color: rgb(70, 68, 68);
+}
