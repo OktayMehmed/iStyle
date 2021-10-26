@@ -8,7 +8,7 @@ import FormContainer from "../FormContainer";
 import Loader from "../Loader";
 import Message from "../Message";
 
-const UserUpdatePage = ({ match, history }) => {
+const UserEditPage = ({ match, history }) => {
   const userId = match.params.id;
 
   const [name, setName] = useState("");
@@ -101,4 +101,4 @@ const UserUpdatePage = ({ match, history }) => {
   );
 };
 
-export default UserUpdatePage;
+export default UserEditPage;

@@ -14,8 +14,9 @@ import PaymentPage from "./components/PaymentPage";
 import PlaceOrderPage from "./components/PlaceOrderPage";
 import OrderPage from "./components/OrderPage";
 import UserListPage from "./components/UserListPage";
-import UserUpdatePage from "./components/UserUpdatePage";
+import UserEditPage from "./components/UserEditPage";
 import ProductListPage from "./components/ProductListPage";
+import ProductEditPage from "./components/ProductEditPage";
 
 const App = () => {
   return (
@@ -32,8 +33,9 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/userlist" component={UserListPage} />
+          <Route path="/admin/user/:id/edit" component={UserEditPage} />
           <Route path="/admin/productlist" component={ProductListPage} />
-          <Route path="/admin/user/:id/edit" component={UserUpdatePage} />
+          <Route path="/admin/product/:id/edit" component={ProductEditPage} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/cart/:id?" component={CartPage} />
         </Container>
