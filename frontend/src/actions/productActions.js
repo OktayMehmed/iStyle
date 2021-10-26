@@ -44,7 +44,6 @@ export const listProductDetails = (id) => (dispatch) => {
     });
 };
 
-
 export const deleteProductAction = (id) => (dispatch, getState) => {
   dispatch({
     type: "PRODUCT_DELETE_REQUEST",
@@ -68,6 +67,37 @@ export const deleteProductAction = (id) => (dispatch, getState) => {
     .catch((error) => {
       dispatch({
         type: "PRODUCT_DELETE_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};
+
+export const createProductAction = () => (dispatch, getState) => {
+  dispatch({
+    type: "PRODUCT_CREATE_REQUEST",
+  });
+
+  const {
+    userLogin: { userInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+
+  axios
+    .post(`/api/products`, {}, config)
+    .then(({ data }) => {
+      dispatch({ type: "PRODUCT_CREATE_SUCCESS", payload: data });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "PRODUCT_CREATE_FAIL",
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

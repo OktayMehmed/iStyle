@@ -7,6 +7,7 @@ import Loader from "../Loader";
 import {
   listProducts,
   deleteProductAction,
+  createProductAction,
 } from "../../actions/productActions";
 
 const ProductListPage = ({ history }) => {
@@ -25,22 +26,43 @@ const ProductListPage = ({ history }) => {
     error: errorDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingProduct,
+    success: successProduct,
+    error: errorProduct,
+    product: createdProduct,
+  } = productCreate;
+
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({ type: "PRODUCT_CREATE_RESET" });
+
+    if (!userInfo.isAdmin) {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, successDelete]);
+
+    if (successProduct) {
+      history.push(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successProduct,
+    createdProduct,
+  ]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
-      dispatch(deleteProductAction(id))
+      dispatch(deleteProductAction(id));
     }
   };
 
-  const createProductHandler = (product) => {
-    // CREATE PRODUCT
+  const createProductHandler = () => {
+    dispatch(createProductAction());
   };
 
   return (
@@ -56,7 +78,9 @@ const ProductListPage = ({ history }) => {
         </Col>
       </Row>
       {loadingDelete && <Loader />}
-      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {loadingProduct && <Loader />}
+      {errorProduct && <Message variant="danger">{errorProduct}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
