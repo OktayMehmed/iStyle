@@ -10,6 +10,7 @@ import {
 import FormContainer from "../FormContainer";
 import Loader from "../Loader";
 import Message from "../Message";
+import axios from "axios";
 
 const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
@@ -19,6 +20,7 @@ const ProductEditPage = ({ match, history }) => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,6 +50,30 @@ const ProductEditPage = ({ match, history }) => {
       }
     }
   }, [dispatch, product, productId, history, successUpdate]);
+
+  const uploadImageHanlder = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    const config = {
+      header: {
+        "Contet-type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post("/api/upload", formData, config)
+      .then(({ data }) => {
+        setImage(data);
+        setUploading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setUploading(false);
+      });
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -116,6 +142,13 @@ const ProductEditPage = ({ match, history }) => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               />
+              <Form.File
+                id="image-file"
+                label="Choose image"
+                custom
+                onChange={uploadImageHanlder}
+              />
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="countinstock">
