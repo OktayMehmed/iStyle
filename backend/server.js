@@ -1,10 +1,12 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 
 const db = require("./config/db");
 const Product = require("./routes/Product");
 const User = require("./routes/User");
 const Order = require("./routes/Order");
+const Upload = require("./routes/Upload");
 const { notFound, errorHandler } = require("./middleware/error");
 
 dotenv.config();
@@ -22,13 +24,15 @@ app.get("/", (req, res) => {
 app.use("/api/products", Product);
 app.use("/api/users", User);
 app.use("/api/orders", Order);
+app.use("/api/upload", Upload);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-app.use(notFound);
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
+app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
