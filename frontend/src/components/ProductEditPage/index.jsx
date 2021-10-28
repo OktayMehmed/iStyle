@@ -58,13 +58,13 @@ const ProductEditPage = ({ match, history }) => {
     setUploading(true);
 
     const config = {
-      header: {
+      headers: {
         "Contet-type": "multipart/form-data",
       },
     };
 
     axios
-      .post("/api/upload", formData, config)
+      .post("/api/uploads", formData, config)
       .then(({ data }) => {
         setImage(data);
         setUploading(false);

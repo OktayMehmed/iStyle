@@ -24,12 +24,13 @@ app.get("/", (req, res) => {
 app.use("/api/products", Product);
 app.use("/api/users", User);
 app.use("/api/orders", Order);
-app.use("/api/upload", Upload);
+app.use("/api/uploads", Upload);
 
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
+__dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(notFound);
