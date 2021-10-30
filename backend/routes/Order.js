@@ -4,13 +4,17 @@ const {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
-  getUserOrders
+  getUserOrders,
+  getAllOrders,
 } = require("../controllers/Order");
-const { protect } = require("../middleware/auth");
+const { protect, isAdmin } = require("../middleware/auth");
 
-router.route("/").post(protect, addOrderItems);
+router
+  .route("/")
+  .post(protect, addOrderItems)
+  .get(protect, isAdmin, getAllOrders);
 router.route("/myorders").get(protect, getUserOrders);
 router.route("/:id").get(protect, getOrderById);
 router.route("/:id/pay").put(protect, updateOrderToPaid);
 
-module.exports = router;
+module.exports = router;s

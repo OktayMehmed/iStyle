@@ -80,4 +80,13 @@ const getUserOrders = (req, res) => {
   })
 };
 
-module.exports = { addOrderItems, getOrderById, updateOrderToPaid, getUserOrders };
+// @desc Get all orders
+// @route GET /api/orders
+// @access Private/Admin
+const getAllOrders = (req, res) => {
+  Order.find({}).populate('user', 'id name').then(orders => {
+    res.json(orders)
+  })
+};
+
+module.exports = { addOrderItems, getOrderById, updateOrderToPaid, getUserOrders, getAllOrders };
