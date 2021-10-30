@@ -17,4 +17,4 @@ router.route("/myorders").get(protect, getUserOrders);
 router.route("/:id").get(protect, getOrderById);
 router.route("/:id/pay").put(protect, updateOrderToPaid);
 
-module.exports = router;s
+module.exports = router;

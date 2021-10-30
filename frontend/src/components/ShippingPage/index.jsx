@@ -13,7 +13,6 @@ const ShippingAddress = ({ history }) => {
     history.push('/login')
   }
 
-
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
