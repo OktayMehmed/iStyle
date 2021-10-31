@@ -40,53 +40,80 @@ const addOrderItems = (req, res) => {
 // @route GET /api/orders/:id
 // @access Private
 const getOrderById = (req, res) => {
-  Order.findById(req.params.id).populate('user', 'name email').then(order => {
-    if(order){
-      res.json(order)
-    } else {
-      res.status(404).json({message: 'Order not found'})
-    }
-  })
+  Order.findById(req.params.id)
+    .populate("user", "name email")
+    .then((order) => {
+      if (order) {
+        res.json(order);
+      } else {
+        res.status(404).json({ message: "Order not found" });
+      }
+    });
 };
 
 // @desc Update order to paid
-// @route PUT /api/orders/:id
+// @route PUT /api/orders/:id/pay
 // @access Private
 const updateOrderToPaid = (req, res) => {
-  Order.findById(req.params.id).then(order => {
-    if(order){
+  Order.findById(req.params.id).then((order) => {
+    if (order) {
       order.isPaid = true;
       order.paidAt = Date.now();
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,
         update_time: req.body.update_time,
-        email_address: req.body.email_address
-      }
+        email_address: req.body.email_address,
+      };
 
-      order.save().then(updatedOrder => res.json(updatedOrder))
+      order.save().then((updatedOrder) => res.json(updatedOrder));
     } else {
-      res.status(404).json({message: 'Order not found'})
+      res.status(404).json({ message: "Order not found" });
     }
-  })
+  });
+};
+
+// @desc Update order to delivered
+// @route PUT /api/orders/:id/deliver
+// @access Private/Admin
+const updateOrderToDelivered = (req, res) => {
+  Order.findById(req.params.id).then((order) => {
+    if (order) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+
+      order.save().then((updatedOrder) => res.json(updatedOrder));
+    } else {
+      res.status(404).json({ message: "Order not found" });
+    }
+  });
 };
 
 // @desc Get logged in user orders
 // @route PUT /api/orders/myorders
 // @access Private
 const getUserOrders = (req, res) => {
-  Order.find({user: req.user._id}).then(orders => {
-    res.json(orders)
-  })
+  Order.find({ user: req.user._id }).then((orders) => {
+    res.json(orders);
+  });
 };
 
 // @desc Get all orders
 // @route GET /api/orders
 // @access Private/Admin
 const getAllOrders = (req, res) => {
-  Order.find({}).populate('user', 'id name').then(orders => {
-    res.json(orders)
-  })
+  Order.find({})
+    .populate("user", "id name")
+    .then((orders) => {
+      res.json(orders);
+    });
 };
 
-module.exports = { addOrderItems, getOrderById, updateOrderToPaid, getUserOrders, getAllOrders };
+module.exports = {
+  addOrderItems,
+  getOrderById,
+  updateOrderToPaid,
+  updateOrderToDelivered,
+  getUserOrders,
+  getAllOrders,
+};

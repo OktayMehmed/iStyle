@@ -105,6 +105,40 @@ export const orderPayAction =
       });
   };
 
+export const orderDeliverAction = (order) => (dispatch, getState) => {
+    dispatch({
+      type: "ORDER_DELIVER_REQUEST",
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    axios
+      .put(`/api/orders/${order._id}/deliver`, {}, config)
+      .then(({ data }) => {
+        dispatch({
+          type: "ORDER_DELIVER_SUCCESS",
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "ORDER_DELIVER_FAIL",
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      });
+  };
+
 export const orderMyListAction = () => (dispatch, getState) => {
   dispatch({
     type: "ORDER_MY_LIST_REQUEST",
