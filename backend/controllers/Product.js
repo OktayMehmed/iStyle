@@ -61,11 +61,50 @@ const updateProduct = (req, res) => {
         (product.image = image),
         (product.description = description),
         (product.price = price),
-        (product.countInStock = countInStock)
+        (product.countInStock = countInStock);
 
-        product.save().then((updatedProduct) => {
-          res.json(updatedProduct);
-        });
+      product.save().then((updatedProduct) => {
+        res.json(updatedProduct);
+      });
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  });
+};
+
+// @desc Create a review
+// @route POST /api/products/:id/reviews
+// @access Private
+const createProductReview = (req, res) => {
+  const { rating, comment } = req.body;
+
+  Product.findById(req.params.id).then((product) => {
+    if (product) {
+      const alreadyReview = product.reviews.find(
+        (r) => r.user.toString() === req.user._id.toString()
+      );
+
+      if (alreadyReview) {
+        res.status(400).json({ message: "Product already reviewed" });
+      }
+
+      const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id,
+      };
+ 
+      product.reviews.push(review);
+
+      product.numReviews = product.reviews.length;
+
+      product.rating =
+        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        product.reviews.length;
+
+      product.save();
+      res.status(201).json({ message: "Review added" });
     } else {
       res.status(404).json({ message: "Product not found" });
     }
@@ -78,4 +117,5 @@ module.exports = {
   deleteProduct,
   createProduct,
   updateProduct,
+  createProductReview,
 };
