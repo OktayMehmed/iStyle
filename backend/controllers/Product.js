@@ -86,6 +86,7 @@ const createProductReview = (req, res) => {
 
       if (alreadyReview) {
         res.status(400).json({ message: "Product already reviewed" });
+        return;
       }
 
       const review = {
