@@ -4,7 +4,18 @@ const Product = require("../model/Product");
 // @route GET /api/products
 // @access Public
 const getProducts = (req, res) => {
-  Product.find().then((products) => res.json(products));
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {}; 
+
+  console.log(keyword)
+
+  Product.find({ ...keyword }).then((products) => res.json(products));
 };
 
 // @desc Fetch single product
@@ -95,7 +106,7 @@ const createProductReview = (req, res) => {
         comment,
         user: req.user._id,
       };
- 
+
       product.reviews.push(review);
 
       product.numReviews = product.reviews.length;
