@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
 import Product from "../ProductPage";
+import ProductCarousel from "../ProductCarousel";
 import Paginate from "../Paginate";
 import { listProducts } from "../../actions/productActions";
 import Loader from "../Loader";
@@ -24,6 +25,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
+      {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />

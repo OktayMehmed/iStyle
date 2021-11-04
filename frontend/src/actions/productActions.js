@@ -172,3 +172,25 @@ export const createProductReview =
         });
       });
   };
+
+export const listTopProducts = () => (dispatch) => {
+  dispatch({ type: "PRODUCT_TOP_REQUEST" });
+
+  axios
+    .get(`/api/products/top`)
+    .then(({ data }) => {
+      dispatch({
+        type: "PRODUCT_TOP_SUCCESS",
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: "PRODUCT_TOP_FAIL",
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    });
+};

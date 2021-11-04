@@ -10,10 +10,10 @@ a:hover {
   text-decoration: underline;
 }
 
-button, select:hover {
+button,
+select:hover {
   cursor: pointer;
 }
-
 
 h1 {
   font-size: 33px;
@@ -37,18 +37,39 @@ select {
   outline: none;
 }
 
-.btn-first{
+.btn-first {
   margin: 15px 0;
   color: white;
   background-color: black;
   border-radius: 8px;
 }
 
-.btn-primary{
+.btn-primary {
   color: white;
   background-color: black;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   color: rgb(70, 68, 68);
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-caption h2 {
+  color: #fff;
+}
+
+.carousel img {
+  height: 350px;
+  padding: 30px;
+  margin: 40px;
+  border-radius: 13%;
+}
+
+.carousel a {
+  display: flex;
+  justify-content: center;
 }

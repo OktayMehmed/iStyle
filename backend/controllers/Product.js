@@ -133,6 +133,16 @@ const createProductReview = (req, res) => {
   });
 };
 
+// @desc Get top three products
+// @route GET /api/products/top
+// @access Public
+const getTopRatedProducts = (req, res) => {
+  Product.find({})
+    .sort({ rating: -1 })
+    .limit(3)
+    .then((products) => res.json(products));
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -140,4 +150,5 @@ module.exports = {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopRatedProducts,
 };
