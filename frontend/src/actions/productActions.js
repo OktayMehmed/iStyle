@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const listProducts =
-  (keyword = "") =>
+  (keyword = "", pageNumber = "") =>
   (dispatch) => {
     dispatch({ type: "PRODUCT_LIST_REQUEST" });
 
     axios
-      .get(`/api/products?keyword=${keyword}`)
+      .get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`)
       .then(({ data }) => {
         dispatch({
           type: "PRODUCT_LIST_SUCCESS",

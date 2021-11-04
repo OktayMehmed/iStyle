@@ -4,6 +4,9 @@ const Product = require("../model/Product");
 // @route GET /api/products
 // @access Public
 const getProducts = (req, res) => {
+  const productsInPage = 10;
+  const page = Number(req.query.pageNumber) || 1;
+
   const keyword = req.query.keyword
     ? {
         name: {
@@ -11,11 +14,18 @@ const getProducts = (req, res) => {
           $options: "i",
         },
       }
-    : {}; 
+    : {};
 
-  console.log(keyword)
+  console.log(keyword);
 
-  Product.find({ ...keyword }).then((products) => res.json(products));
+  Product.find({ ...keyword })
+    .limit(productsInPage)
+    .skip(productsInPage * (page - 1))
+    .then((products) => {
+      Product.countDocuments({ ...keyword }).then((count) => {
+        res.json({ products, page, pages: Math.ceil(count / productsInPage) });
+      });
+    });
 };
 
 // @desc Fetch single product

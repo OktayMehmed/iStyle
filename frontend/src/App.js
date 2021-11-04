@@ -26,7 +26,13 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route path="/" component={HomePage} exact />
-          <Route path="/search/:keyword" component={HomePage} />
+          <Route path="/page/:pageNumber" component={HomePage} exact />
+          <Route
+            path="/search/:keyword/page/:pageNumber"
+            component={HomePage}
+            exact
+          />
+          <Route path="/search/:keyword" component={HomePage} exact />
           <Route path="/shipping" component={ShippingPage} />
           <Route path="/placeorder" component={PlaceOrderPage} />
           <Route path="/order/:id" component={OrderPage} />
@@ -36,7 +42,12 @@ const App = () => {
           <Route path="/profile" component={ProfilePage} />
           <Route path="/admin/userlist" component={UserListPage} />
           <Route path="/admin/user/:id/edit" component={UserEditPage} />
-          <Route path="/admin/productlist" component={ProductListPage} />
+          <Route path="/admin/productlist" component={ProductListPage} exact />
+          <Route
+            path="/admin/productlist/:pageNumber"
+            component={ProductListPage}
+            exact
+          />
           <Route path="/admin/product/:id/edit" component={ProductEditPage} />
           <Route path="/admin/orderlist" component={OrderListPage} />
           <Route path="/product/:id" component={ProductDetail} />
