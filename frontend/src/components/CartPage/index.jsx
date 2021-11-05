@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, Card, Image, Button, ListGroup } from "react-bootstrap";
 
 import Message from "../Message";
+import Meta from "../Meta";
 import { addToCart, removeItemFromCart } from "../../actions/cartActions";
 
 const CartPage = ({ match, location, history }) => {
@@ -40,6 +41,7 @@ const CartPage = ({ match, location, history }) => {
 
   return (
     <Row>
+      <Meta title='Cart' /> 
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
@@ -102,7 +104,7 @@ const CartPage = ({ match, location, history }) => {
             <ListGroup.Item>
               <Button
                 type="button"
-                className="btn-block"
+                className="w-100"
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >

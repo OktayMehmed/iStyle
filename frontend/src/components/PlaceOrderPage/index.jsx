@@ -143,6 +143,7 @@ const PlaceOrderPage = ({ history }) => {
               <ListGroup.Item>
                 <Button
                   type="button"
+                  className='w-100'
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >

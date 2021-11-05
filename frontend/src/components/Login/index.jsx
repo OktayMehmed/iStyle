@@ -6,6 +6,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { login } from "../../actions/userActions";
 import FormContainer from "../FormContainer";
 import Loader from "../Loader";
+import Meta from "../Meta";
 import Message from "../Message";
 
 const Login = ({ location, history }) => {
@@ -33,6 +34,7 @@ const Login = ({ location, history }) => {
 
   return (
     <FormContainer>
+      <Meta title='Login' />
       <h1 className="text-center">Login</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}

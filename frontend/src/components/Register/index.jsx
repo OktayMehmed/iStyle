@@ -7,6 +7,7 @@ import { register } from "../../actions/userActions";
 import FormContainer from "../FormContainer";
 import Loader from "../Loader";
 import Message from "../Message";
+import Meta from "../Meta";
 
 const Register = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -40,6 +41,7 @@ const Register = ({ location, history }) => {
 
   return (
     <FormContainer>
+      <Meta title="Register" />
       <h1 className="text-center">Register</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}

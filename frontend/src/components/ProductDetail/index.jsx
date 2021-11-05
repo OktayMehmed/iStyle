@@ -6,6 +6,7 @@ import {
 } from "../../actions/productActions";
 import Loader from "../Loader";
 import Message from "../Message";
+import Meta from "../Meta";
 import { Link } from "react-router-dom";
 import {
   Row,
@@ -80,6 +81,7 @@ const ProductDeital = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
@@ -200,7 +202,7 @@ const ProductDeital = ({ history, match }) => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type="submit" variant="primary" className='my-3'>
+                      <Button type="submit" variant="primary" className="my-3">
                         Submit
                       </Button>
                     </Form>
