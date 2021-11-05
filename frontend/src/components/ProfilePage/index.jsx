@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {Table ,Row, Col, Form, Button } from "react-bootstrap";
-import { LinkContainer } from 'react-router-bootstrap'
+import { Table, Row, Col, Form, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import { getUserDetails, updateProfile } from "../../actions/userActions";
 import { orderMyListAction } from "../../actions/orderActions";
@@ -33,7 +33,8 @@ const ProfilePage = ({ history }) => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: "USER_UPDATE_PROFILE_RESET" });
         dispatch(getUserDetails("profile"));
         dispatch(orderMyListAction());
       } else {
@@ -41,7 +42,7 @@ const ProfilePage = ({ history }) => {
         setEmail(user.email);
       }
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [dispatch, history, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -146,7 +147,9 @@ const ProfilePage = ({ history }) => {
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>Details</Button>
+                      <Button className="btn-sm" variant="light">
+                        Details
+                      </Button>
                     </LinkContainer>
                   </td>
                 </tr>
