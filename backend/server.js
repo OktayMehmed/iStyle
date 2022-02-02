@@ -17,10 +17,6 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("API");
-});
-
 app.use("/api/products", Product);
 app.use("/api/users", User);
 app.use("/api/orders", Order);
@@ -32,6 +28,12 @@ app.get("/api/config/paypal", (req, res) =>
 
 __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
+}
 
 app.use(notFound);
 app.use(errorHandler);

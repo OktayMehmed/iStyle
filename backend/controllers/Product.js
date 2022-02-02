@@ -16,8 +16,6 @@ const getProducts = (req, res) => {
       }
     : {};
 
-  console.log(keyword);
-
   Product.find({ ...keyword })
     .limit(productsInPage)
     .skip(productsInPage * (page - 1))
